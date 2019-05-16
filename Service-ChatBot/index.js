@@ -1,48 +1,19 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const app = express()
-const port = 8080
-const RiveScript = require('rivescript')
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
+const express = require('express');
+const bodyParser = require('body-parser');
+const RiveScript = require('rivescript');
+const bot = require('./bot.js');
 
-var bot = new RiveScript();
- 
-// Load a directory full of RiveScript documents (.rive files). This is for
-// Node.JS only: it doesn't work on the web!
-bot.loadDirectory("brain").then(loading_done).catch(loading_error);
-/*  
-// Load a list of files all at once (the best alternative to loadDirectory for the web!)
-bot.loadFile([
-  "brain/steeve.rive"
-]).then(loading_done).catch(loading_error);
- */
-// All file loading operations are asynchronous, so you need handlers
-// to catch when they've finished. If you use loadDirectory (or loadFile
-// with multiple file names), the success function is called only when ALL
-// the files have finished loading.
-function loading_done() {
-  console.log("Bot has finished loading!");
- 
-  // Now the replies must be sorted!
-  bot.sortReplies();
- 
-  // And now we're free to get a reply from the brain!
- 
-  // RiveScript remembers user data by their username and can tell
-  // multiple users apart.
-  let username = "local-user";
- 
-  // NOTE: the API has changed in v2.0.0 and returns a Promise now.
-  bot.reply(username, "Hello, bot!").then(function(reply) {
-    console.log("The bot says: " + reply);
-  });
-}
+const app = express();
+const port = 8080;
 
-// It's good to catch errors too!
-function loading_error(error, filename, lineno) {
-  console.log("Error when loading files: " + error);
-}
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
+robot = new bot('steeve', 2020);
 
-app.listen(port, () => console.log(`Web service running on : http://localhost:${port}`))
+app.listen(port, () => console.log(`Web service running on : http://localhost:${port}`));
+/*
+app.get('/', function (req, res) {
+	res.send("Hello");
+
+});*/
