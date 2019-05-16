@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Steeve talks to you!</title>
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <center>
+        <h4>
+          <i class="material-icons">android</i>
+          &nbsp;Hi! I'm Steeve&nbsp;
+          <i class="material-icons">android</i>
+        </h4>
+        <div class="col l4 s4">Welcome !</div>
+        <div class="col l4 s4">
+          <form id="target" action='/' method="POST">
+            <input type="text" id="query" placeholder="What are you up to?" class="validate" name='chat'>
+            <button class="btn waves-effect waves-light" type="submit">Submit</button>
+          </form>
+        </div>
+      </center>
+    </div>
+  </div>
+  <div class="row">
+    <div id="sugg" class="col s4 offset-s4"></div>
+    <div class="col  s4 offset-s4 grid-example">
+      <div class="collection" id="api_result">
+
+      </div>
+    </div>
+  </div>
+</body>
+</html>
