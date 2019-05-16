@@ -10,12 +10,15 @@ app.use(parser.urlencoded({ extended: true }));			//Autorise le découpage de l'
 app.use(parser.json());															//Autorise le découpage de json
 
 let chats=[];
-/**
-* Page principal du site offrant les choix CRUB pour les deux API
-*
-**/
+
 app.get('/',function(req,res){
   res.render('connexion');
+});
+
+app.post('/choice',function(req,res){ //Permet de choisir le robot
+  requete.getAllRobots()
+  let robots=requete.getReply();
+  res.render('choix',{"robots":robots});
 });
 
 
@@ -24,21 +27,31 @@ app.get('/chat',function(req,res){
 });
 
 app.post('/chat',function(req,res){
-  let chat=req.body.chat;
+  let chat=req.body.personne;
   let pseudo=req.body.pseudo;
+  let id=req.body.id;
+  let robot=req.body.robot;
   if((chat!=null || chat!=undefined) && (pseudo!=null || pseudo!=undefined)){
-    requete.reply(pseudo,chat);
+    requete.reply(pseudo,chat,robot); //envoie recherche au bon robot
     let reponse=requete.getReply();
-    console.log(reponse);
-    res.render('main',{"chat": chat,"pseudo": pseudo, "reply": reponse});
-
+    let conv1=pseudo+" : "+chat;
+    let conv2="Steeve : "+reponse.reply;
+    let ind=0;
+    chats.forEach(function(item, index, array) {  //recherche de la bonne conversation
+      if(item.getId()==id){
+        ind=index;
+      }
+    });
+    chats[ind].getConv().push(conv1); //Ajoute conversation au tableau
+    chats[ind].getConv().push(conv2);
+    res.render('main',{"chat": chats[ind].getConv(), "pseudo" : pseudo, "id": id});
   }
-  else{
+  else{ //init car on vient d'arriver sans message
     if(chat==null || chat==undefined){
       let id=Math.floor(Math.random() * Math.floor(50000));
-      chats.push(new chatroom(id,req.body.room))
+      chats.push(new chatroom(id,[""]))
     }
-    res.render('main',{ "chat": "", "pseudo": pseudo, "reply": ""
+    res.render('main',{ "chat": [], "pseudo": pseudo, "reply": "", "id" : id
   });
   }
 });

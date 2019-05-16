@@ -20,8 +20,10 @@
         <div class="col l4 s4">Welcome !</div>
         <div class="col l4 s4">
           <form id="target" action='/chat' method="POST">
-            <input type="text" id="query" placeholder="What are you up to?" class="validate" name='chat' required>
+            <input type="text" id="query" placeholder="What are you up to?" class="validate" name='personne' required>
             <input type="hidden" name="pseudo" value="<%=pseudo%>">
+            <input type="hidden" name="robot" value="<%=robot%>">
+            <input type="hidden" name="id" value="<%=id%>">
             <button class="btn waves-effect waves-light" type="submit">Submit</button>
           </form>
         </div>
@@ -29,15 +31,13 @@
     </div>
   </div>
   <div class="row">
-    <div id="sugg" class="col s4 offset-s4" name="room">
-      <%=pseudo%> : <%=chat%>
-      <br>
-      Steeve : <%=reply.reply%>
-    </div>
+    <p id="sugg">
+      <% chat.forEach(function(conv){ %>
+          <%=conv%>
+          <br>
+    <% }); %>
+    </p>
     <div class="col  s4 offset-s4 grid-example">
-      <div class="collection" id="api_result">
-
-      </div>
     </div>
   </div>
 </body>

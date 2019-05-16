@@ -16,13 +16,13 @@ exports.getReply = function() {
 
 
 /**
-* Cette fonction permet de créer un tag en fonction de ce que l'utilisateur a rentré
+* Cette fonction permet d'obtenir une réponse du robot
 */
-exports.reply=function(username,msg){
+exports.reply=function(username,msg,id){
   var invocation =new XMLHttpRequest();
   if(invocation){
     let tag={"username":username,"message":msg}
-    invocation.open('POST', 'http://localhost:2001/reply', false);
+    invocation.open('POST', "http://localhost:"+id+"/reply", false);
     invocation.setRequestHeader('Content-Type', 'application/json');
     invocation.onreadystatechange = function(){
       if (invocation.readyState == 4){
@@ -30,7 +30,6 @@ exports.reply=function(username,msg){
 
     	try{
           	reponse = JSON.parse(invocation.responseText);
-    		  //  console.log(response);
     	}catch(err){
     		console.log("invocation.responseText "+invocation.responseText);
     	}
@@ -43,6 +42,36 @@ exports.reply=function(username,msg){
       }
     };
     invocation.send(JSON.stringify(tag));
+  }else{
+    console.error("No Invocation TookPlace At All");
+  }
+}
+
+/**
+* Cette fonction permet d'obtenir la liste des robots
+*/
+exports.getAllRobots=function(){
+  var invocation =new XMLHttpRequest();
+  if(invocation){
+    invocation.open('GET', 'http://localhost:8080', false);
+    invocation.setRequestHeader('Content-Type', 'application/json');
+    invocation.onreadystatechange = function(){
+      if (invocation.readyState == 4){
+        if (invocation.status == 200){
+    	try{
+          	reponse = JSON.parse(invocation.responseText);
+    	}catch(err){
+    		console.log("invocation.responseText "+invocation.responseText);
+    	}
+
+        }else{
+          console.error("Invocation Errors Occured " + invocation.readyState + " and the status is " + invocation.status);
+        }
+      }else{
+        console.log("currently the application is at" + invocation.readyState);
+      }
+    };
+    invocation.send(null);
   }else{
     console.error("No Invocation TookPlace At All");
   }
