@@ -3,11 +3,12 @@ const express = require('express')
 const bodyParser = require('body-parser');
 
 class robot { 	
-	constructor(brainPath, port){
-		this.port=port;
-		this.brainPath=brainPath;
+	constructor(name, personality, port){
+		this.name = name;
+		this.port = port;
+		this.personality=personality;
 		this.bot = new RiveScript();
-		this.bot.loadFile("./brain/"+brainPath+".rive").then(this.success_handler.bind(this)).catch(this.error_handler);
+		this.bot.loadFile("./brain/"+personality+".rive").then(this.success_handler.bind(this)).catch(this.error_handler);
 	}
 
 	// Send a JSON error to the browser.
