@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 
 // BOTS
 const FIRST_PORT = 2000;
-
+const personalityList = ['steeve', 'translater'];
 
 var bots = [];
 var mockBot = new bot('mockBot','steeve', 2020)
@@ -31,7 +31,6 @@ function  getBot(name){
 
 
 // GET
-
 app.get('/', function(req, res){
 	console.log("Demande de la liste des bots");
 	var listBot =[];
@@ -39,6 +38,10 @@ app.get('/', function(req, res){
 		listBot.push(bot.toString());
 	});
 	res.json(listBot);
+});
+app.get('/aide/personnalites', function(req, res){
+	console.log("Demande de la liste des personnalités");
+	res.json(personalityList);
 });
 app.get('/:name', function(req, res){
 	console.log('On demande les informations du bot '+req.params.name );
