@@ -9,6 +9,33 @@ class robot {
 		this.personality=personality;
 		this.bot = new RiveScript();
 		this.bot.loadFile("./brain/"+personality+".rive").then(this.success_handler.bind(this)).catch(this.error_handler);
+
+		this.changePersonality = function (personality) {
+			this.brain = new RiveScript();
+			this.personality = personality;
+			this.brain.loadFile('./brain/'+personality+'.rive').then(this.loading_done).catch(this.loading_error);
+		}
+
+		this.toString = function(){
+			return {
+				name : this.name,
+				personality : this.personality,
+				port : this.port
+			}
+		}
+
+		this.getName = function(){
+			return this.name;
+		}
+
+		this.loading_done = function () {
+			console.log("Personalité affecté !");
+			this.brain.sortReplies();
+			this.connectToService();			
+		}
+		this.loading_error = function (error, filename, lineno) {
+			console.log("Erreur lors du chargement du fichier: " + error);
+		}
 	}
 
 	// Send a JSON error to the browser.

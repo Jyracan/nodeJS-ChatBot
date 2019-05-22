@@ -11,12 +11,14 @@ Run on port 8080 by default.
 - [x] Instanciation of a bot via HTTP request (POST)
 - [ ] Destruction of a bot via HTTP request (DEL)
 - [ ] Modification of a bot via HTTP request (PUT)
+- [ ] Modification of the interface of a bot (PUT)
+- [ ] Modification of the personality of a bot (PUT)
 - [x] Getting a list of all the bots via HTTP request (GET)
-- [x] Getting a specific bot via his name
+- [x] Getting a specific bot via his name (GET)
 
 ## Random informations 
 
-When you launch this web service a bot is create is name is mockBot and he as the personnality of Steeve (https://github.com/aichaos/rivescript-js/blob/master/eg/brain/begin.rive).
+When you launch this web service a bot is create is name is mockBot and he as the personnality of Steeve.
 
 ## How to GET the list of bots ?
 
@@ -55,4 +57,9 @@ You need to create a POST request and send a JSON like this :
 If you send an empty JSON or if informations are lacking the name will be "Anne Onyme" and the personnality "Steeve".
 
 The bot will take a port which isn't currently used starting with the port 2000.
+
+## Ressources:
+
+- Steeve brain : https://github.com/aichaos/rivescript-js/blob/master/eg/brain/begin.rive
+- Translater brain : https://github.com/aifr/rivescriptfr/blob/master/eg/brain/francais-anglais.rive
 

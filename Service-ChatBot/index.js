@@ -13,55 +13,48 @@ app.use(bodyParser.json());
 // BOTS
 const FIRST_PORT = 2000;
 
-var listBot = [];
 
 var bots = [];
+var mockBot = new bot('mockBot','steeve', 2020)
+bots.push(mockBot);
 
-bots.push(new bot('mockBot','steeve', 2020));
-listBot.push({
-	name : 'mockBot',
-	personality : 'steeve',
-	port : 2020
-})
 
 function  getBot(name){
-	tmp = null;
-	listBot.forEach(function(bot, i) {
-		if(bot.name == name){
-			tmp = bot;
+	res = null;
+	bots.forEach(function(bot, i) {
+		if(bot.getName() == name){
+			res = bot;
 		}
 	});
-	return tmp;
+	return res;
 }
 
-function majBot(index,bot){
-	
-}
 
 // GET
 
 app.get('/', function(req, res){
-	console.log("Demande de la liste des bots")
+	console.log("Demande de la liste des bots");
+	var listBot =[];
+	bots.forEach( function(bot, index) {
+		listBot.push(bot.toString());
+	});
 	res.json(listBot);
 });
 app.get('/:name', function(req, res){
-	console.log('On demande les informations du bot '+req.params.id );
-	var bot = null;
-	bot = getBot(req.params.name);
+	console.log('On demande les informations du bot '+req.params.name );
+	var bot = getBot(req.params.name);
 	if(bot != null){
-		res.json(getBot(req.params.name));
+		res.json(bot.toString());
 	}
 	else{
-		res.send('404', 'Bot not found ! ;)');
+		res.send('404', 'Bot not found ! :(');
 	}
 });
 
 // POST
-
 app.post('/', function(req, res){
 	console.log('Demande de création d\'un bot');
 	if(req.is('json')){
-		console.log('On crée un bot');
 		var name = req.body.name;
 		if(name == undefined) {name = "Anne Onyme";}
 		console.log('Son nom sera ' + name);
@@ -71,7 +64,7 @@ app.post('/', function(req, res){
 		var port = FIRST_PORT;
 		while(flag){
 			flag = false;
-			listBot.forEach( function(bot, index) {
+			bots.forEach( function(bot, index) {
 				if(bot.port == port){
 					flag = true;
 					port = port +1;
@@ -80,11 +73,6 @@ app.post('/', function(req, res){
 			
 		}
 		bots.push(new bot(name,personality, port));
-		listBot.push({
-			name : name,
-			personality : personality,
-			port : port
-		})
 		res.send(200, 'Fait');
 	}
 	else{
@@ -92,12 +80,33 @@ app.post('/', function(req, res){
 	}
 });
 
+//DELETE
 app.delete('/:name',function(req, res) {
-	console.log("Supprssion du bot "+name);
+	console.log("Suppression du bot "+name);
     if(undefined!=name){
 		res.send(200,'OK');
     }else{
-		res.send(404, 'Page introuvable !');
+		res.send(404, 'Bot not found ! :(');
+	}
+});
+//PUT
+app.put('/:name',function(req, res) {
+	console.log("Modification du bot "+name);
+    if(undefined!=name){
+    	// UPDATE OF THE PERSONALITY
+    	var personality = req.body.personality;
+		if(personality != undefined) {
+			bot = getBot(name);
+			bot.changePersonality(personality);
+
+			console.log("Personnalité du robot changé !")
+		}
+		//UPDATE OF THE NAME
+
+
+		res.send(200,'OK');
+    }else{
+		res.send(404, 'Bot not found ! :(');
 	}
 });
 
