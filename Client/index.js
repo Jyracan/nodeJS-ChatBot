@@ -17,8 +17,9 @@ app.get('/',function(req,res){
 
 app.post('/choice',function(req,res){ //Permet de choisir le robot
   requete.getAllRobots()
+  let pseudo=req.body.pseudo;
   let robots=requete.getReply();
-  res.render('choix',{"robots":robots});
+  res.render('choix',{"robots":robots,"pseudo": pseudo});
 });
 
 
@@ -27,15 +28,17 @@ app.get('/chat',function(req,res){
 });
 
 app.post('/chat',function(req,res){
-  let chat=req.body.personne;
-  let pseudo=req.body.pseudo;
-  let id=req.body.id;
-  let robot=req.body.robot;
+  let chat=req.body.personne; //message de l'utilisateur
+  let pseudo=req.body.pseudo; //Son pseudo
+  let id=req.body.id;         //id de la chatroom
+  let port=req.body.port;     //port du robot
+  let name=req.body.name;     //nom robot
+  console.log(name);
   if((chat!=null || chat!=undefined) && (pseudo!=null || pseudo!=undefined)){
-    requete.reply(pseudo,chat,robot); //envoie recherche au bon robot
+    requete.reply(pseudo,chat,port); //envoie recherche au bon robot
     let reponse=requete.getReply();
     let conv1=pseudo+" : "+chat;
-    let conv2="Steeve : "+reponse.reply;
+    let conv2=name+" : "+reponse.reply;
     let ind=0;
     chats.forEach(function(item, index, array) {  //recherche de la bonne conversation
       if(item.getId()==id){
@@ -44,14 +47,14 @@ app.post('/chat',function(req,res){
     });
     chats[ind].getConv().push(conv1); //Ajoute conversation au tableau
     chats[ind].getConv().push(conv2);
-    res.render('main',{"chat": chats[ind].getConv(), "pseudo" : pseudo, "id": id});
+    res.render('main',{"chat": chats[ind].getConv(), "pseudo" : pseudo, "id": id, "port" : port, "name": name});
   }
   else{ //init car on vient d'arriver sans message
     if(chat==null || chat==undefined){
       let id=Math.floor(Math.random() * Math.floor(50000));
       chats.push(new chatroom(id,[""]))
     }
-    res.render('main',{ "chat": [], "pseudo": pseudo, "reply": "", "id" : id
+    res.render('main',{ "chat": [], "pseudo": pseudo, "reply": "", "id" : id, "port": port, "name": name
   });
   }
 });
