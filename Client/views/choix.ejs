@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <form action="chat" method="post">
+      <select id="list" name="robot">
+        <% robots.forEach(function(robot){ %>
+    				<option value="<%=robot.port%>"><%=robot.name%></option> <!-- Récupération du tags-->
+    				<% }); %>
+      </select>
+      <br>
+      <input type="submit" name="" value="Valider">
+    </form>
+
+  </body>
+</html>
