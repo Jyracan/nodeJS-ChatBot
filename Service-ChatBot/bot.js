@@ -1,6 +1,7 @@
 const RiveScript = require('rivescript')
 const express = require('express')
 const bodyParser = require('body-parser');
+const kill =require('kill-port');
 
 class robot { 	
 	constructor(name, personality, port){
@@ -10,10 +11,27 @@ class robot {
 		this.bot = new RiveScript();
 		this.bot.loadFile("./brain/"+personality+".rive").then(this.success_handler.bind(this)).catch(this.error_handler);
 		this.app = express();
-		this.changePersonality = function (personality) {
+
+		this.changePersonality = function (newPersonality) {
 			this.bot = new RiveScript();
-			this.personality = personality;
-			this.bot.loadFile('./brain/'+personality+'.rive').then(this.success_handler.bind(this)).catch(this.error_handler);
+			kill(this.port,'tcp').then(console.log).catch(console.log);
+			this.personality = newPersonality;
+			this.bot.loadFile('./brain/'+newPersonality+'.rive').then(this.success_handler.bind(this)).catch(this.error_handler);
+		}
+
+		this.changeName = function(newName){
+			this.name = newName;
+			this.bot.setVariable ("name", newName)
+		}
+
+		this.delete = function(){
+			console.log(port)
+			kill(this.port,'tcp').then(console.log).catch(console.log);
+			this.name = null;
+			this.port = null;
+			this.personality = null;
+			this.bot = null;
+			this.app = null;
 		}
 
 		this.toString = function(){
@@ -80,8 +98,6 @@ class robot {
 			});
 		}
 
-		// Set up the Express app.
-		this.app = express();
 
 		// Parse application/json inputs.
 		this.app.use(bodyParser.json());

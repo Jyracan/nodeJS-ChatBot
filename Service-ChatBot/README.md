@@ -59,6 +59,13 @@ If you send an empty JSON or if informations are lacking the name will be "Anne 
 
 The bot will take a port which isn't currently used starting with the port 2000.
 
+## How to change bot varaibles ?
+if you want to change the name of your bot you can send a PUT request at http://localhost:8080/BOT_NAME
+
+```JSon
+{"name" : "test"}
+```
+
 ## Ressources:
 
 - Steeve brain : https://github.com/aichaos/rivescript-js/blob/master/eg/brain/begin.rive

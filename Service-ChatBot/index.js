@@ -15,7 +15,7 @@ const FIRST_PORT = 2000;
 const personalityList = ['steeve', 'stupid'];
 
 var bots = [];
-var mockBot = new bot('mockBot','steeve', 2020)
+var mockBot = new bot('mockBot','steeve', 2000)
 bots.push(mockBot);
 
 
@@ -27,6 +27,16 @@ function  getBot(name){
 		}
 	});
 	return res;
+}
+function deleteBot(index){
+	res = null;
+	bots.forEach(function(bot, i) {
+		console.log(i)
+		if(bot.getName() == name){
+			delete bots[i];
+		}
+	});
+	
 }
 
 
@@ -87,7 +97,9 @@ app.post('/', function(req, res){
 app.delete('/:name',function(req, res) {
 	var name = req.params.name;
 	console.log("Suppression du bot "+name);
-    if(undefined!=name){
+    if(name!=undefined){
+    	getBot(name).delete();
+
 		res.send(200,'OK');
     }else{
 		res.send(404, 'Bot not found ! :(');
@@ -99,13 +111,22 @@ app.put('/:name',function(req, res) {
 	console.log("Modification du bot "+name);
     if(undefined!=name){
     	// UPDATE OF THE PERSONALITY
-    	var personality = req.body.personality;
-		if(personality != undefined) {
+    	var newPersonality = req.body.personality;
+    	console.log("np " + newPersonality)
+		if(newPersonality != undefined) {
 			botToUpdate = getBot(name);
-			botToUpdate.changePersonality(personality);
+			botToUpdate.changePersonality(newPersonality);
 			console.log("Personnalité du robot changé !")
 		}
 		//UPDATE OF THE NAME
+		var newName = req.body.name;
+		console.log("nn " + newName)
+
+		if(newName != undefined) {
+			botToUpdate = getBot(name);
+			botToUpdate.changeName(newName);
+			console.log("Nom du robot changé !")
+		}
 		res.send(200,'OK');
     }else{
 		res.send(404, 'Bot not found ! :(');
