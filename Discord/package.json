@@ -1,18 +1,20 @@
 {
-  "name": "client",
+  "name": "discord",
   "version": "1.0.0",
-  "description": "Interface client pour réaliser la liste de todo",
+  "description": "ChatRobot using Discord API",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Paul-Louis Renard",
+  "author": "PLR & CM",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.18.3",
+    "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.4",
+    "dblapi.js": "^2.3.0",
+    "discord.js": "^11.5.0",
     "ejs": "^2.6.1",
-    "express": "^4.16.4",
+    "express": "^4.17.0",
     "xmlhttprequest": "^1.8.0"
   }
 }

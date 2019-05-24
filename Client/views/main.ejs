@@ -10,7 +10,6 @@
 </head>
 <body>
   <form  action="choice" method="post">
-      <input type="hidden" name="pseudo" value="<%=pseudo%>">
       <input type="submit" name="" value="back">
   </form>
   <div class="container">
@@ -25,7 +24,6 @@
         <div class="col l4 s4">
           <form id="target" action='/chat' method="POST">
             <input type="text" id="query" placeholder="What are you up to?" class="validate" name='personne' required>
-            <input type="hidden" name="pseudo" value="<%=pseudo%>">
             <input type="hidden" name="port" value="<%=port%>">
             <input type="hidden" name="id" value="<%=id%>">
             <input type="hidden" name="name" value="<%=name%>">

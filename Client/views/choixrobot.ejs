@@ -6,20 +6,17 @@
   </head>
   <body>
     <form action="chat" method="post">
-      <select id="list" name="port">
+      <select id="list" name="name">
         <% robots.forEach(function(robot){ %>
-    				<option value="<%=robot.port%>"><%=robot.name%></option> <!-- Récupération du port-->
-            <input type="hidden" name="name" value="<%=robot.name%>">
+    				<option value="<%=robot.name%>"><%=robot.name%></option> <!-- Récupération du port-->
     				<% }); %>
       </select>
       <br>
-      <input type="hidden" name="pseudo" value="<%=pseudo%>">
 
       <input type="submit" name="" value="Submit">
     </form>
 
     <form action="choice" method="post">
-      <input type="hidden" name="pseudo" value="<%=pseudo%>">
       <input type="submit" name="" value="back">
     </form>
   </body>
