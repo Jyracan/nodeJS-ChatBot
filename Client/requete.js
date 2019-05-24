@@ -76,3 +76,66 @@ exports.getAllRobots=function(){
     console.error("No Invocation TookPlace At All");
   }
 }
+
+/**
+* Cette fonction permet d'obtenir la liste des personalités
+*/
+exports.getAllPersonality=function () {
+  var invocation =new XMLHttpRequest();
+  if(invocation){
+    invocation.open('GET', 'http://localhost:8080/aide/personnalites', false);
+    invocation.setRequestHeader('Content-Type', 'application/json');
+    invocation.onreadystatechange = function(){
+      if (invocation.readyState == 4){
+        if (invocation.status == 200){
+      try{
+            reponse = JSON.parse(invocation.responseText);
+      }catch(err){
+        console.log("invocation.responseText "+invocation.responseText);
+      }
+
+        }else{
+          console.error("Invocation Errors Occured " + invocation.readyState + " and the status is " + invocation.status);
+        }
+      }else{
+        console.log("currently the application is at" + invocation.readyState);
+      }
+    };
+    invocation.send(null);
+  }else{
+    console.error("No Invocation TookPlace At All");
+  }
+}
+
+/**
+* Cette fonction permet de créer un robot en fonction de ce que l'utilisateur a rentré
+*/
+exports.createARobot=function(name,personality){
+  var invocation =new XMLHttpRequest();
+  if(invocation){
+    let robot={name: name,personality: personality };
+    invocation.open('POST', 'http://localhost:8080', true);
+    invocation.setRequestHeader('Content-Type', 'application/json');
+    invocation.onreadystatechange = function(){
+      if (invocation.readyState == 4){
+        if (invocation.status == 200){
+
+    	try{
+          	reponse = JSON.parse(invocation.responseText);
+    		  //  console.log(response);
+    	}catch(err){
+    		console.log("invocation.responseText "+invocation.responseText);
+    	}
+
+        }else{
+          console.error("Invocation Errors Occured " + invocation.readyState + " and the status is " + invocation.status);
+        }
+      }else{
+        console.log("currently the application is at" + invocation.readyState);
+      }
+    };
+    invocation.send(JSON.stringify(robot));
+  }else{
+    console.error("No Invocation TookPlace At All");
+  }
+}

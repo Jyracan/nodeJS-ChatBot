@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Add a Bot</title>
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+<body>
+  <%=ajout%>
+  <br>
+  <i class="material-icons">android</i>
+  &nbsp;Add a chatBot&nbsp;
+  <i class="material-icons">android</i>
+  <form action="add" method="post">
+    <label for="name">Name : </label>
+    <input type="text" name="name" id="name">
+    <br>
+    <select  name="personality">
+      <% personalities.forEach(function(personality){ %>
+          <option value="<%=personality%>"><%=personality%></option> <!-- Récupération du port-->
+
+          <% }); %>
+    </select>
+    <input type="hidden" name="pseudo" value="<%=pseudo%>">
+    <input type="submit" name="" value="Submit">
+  </form>
+<form action="admin" method="post">
+  <input type="hidden" name="pseudo" value="<%=pseudo%>">
+  <input type="submit" value="back">
+</form>
+
+</body>
+</html>
