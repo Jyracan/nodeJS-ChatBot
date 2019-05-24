@@ -5,17 +5,13 @@
     <title></title>
   </head>
   <body>
-    <form action="chat" method="post">
-      <select id="list" name="port">
-        <% robots.forEach(function(robot){ %>
-    				<option value="<%=robot.port%>"><%=robot.name%></option> <!-- Récupération du port-->
-            <input type="hidden" name="pseudo" value="<%=pseudo%>">
-            <input type="hidden" name="name" value="<%=robot.name%>">
-    				<% }); %>
-      </select>
-      <br>
-      <input type="submit" name="" value="Valider">
+    <form action="choiceBot" method="post">
+      <input type="hidden" name="pseudo" value="<%=pseudo%>">
+      <input type="submit" name="" value="Choose your robot">
     </form>
-
+    <form action="admin" method="post">
+      <input type="hidden" name="pseudo" value="<%=pseudo%>">
+      <input type="submit" name="" value="Administration">
+    </form>
   </body>
 </html>

@@ -18,22 +18,48 @@ app.get('/',function(req,res){
 app.post('/choice',function(req,res){ //Permet de choisir le robot
   requete.getAllRobots()
   let pseudo=req.body.pseudo;
-  let robots=requete.getReply();
-  res.render('choix',{"robots":robots,"pseudo": pseudo});
+  res.render('choix',{"pseudo": pseudo});
 });
 
+app.post('/choiceBot',function(req,res){ //Permet de choisir le robot
+  requete.getAllRobots()
+  let pseudo=req.body.pseudo;
+  let robots=requete.getReply();
+  res.render('choixrobot',{"robots":robots,"pseudo": pseudo});
+});
+
+app.post('/admin',function(req,res){
+  let pseudo=req.body.pseudo;
+  res.render('admin',{"pseudo": pseudo})
+});
 
 app.get('/chat',function(req,res){
   res.render('main',{'chat': ""});
+});
+
+app.post('/add',function(req,res){
+  let pseudo=req.body.pseudo;
+  let name=req.body.name;
+  let personality=req.body.personality;
+  requete.getAllPersonality();
+  let personalities=requete.getReply();
+  if(name==undefined){
+    res.render('ajout',{"pseudo":pseudo,"personalities": personalities, "ajout": ""});
+  }
+  else{
+      requete.createARobot(name,personality);
+      res.render('ajout',{"pseudo":pseudo,"personalities": personalities, "ajout": "Successfully added!"});
+  }
+
 });
 
 app.post('/chat',function(req,res){
   let chat=req.body.personne; //message de l'utilisateur
   let pseudo=req.body.pseudo; //Son pseudo
   let id=req.body.id;         //id de la chatroom
+  console.log("id="+id);
   let port=req.body.port;     //port du robot
   let name=req.body.name;     //nom robot
-  console.log(name);
   if((chat!=null || chat!=undefined) && (pseudo!=null || pseudo!=undefined)){
     requete.reply(pseudo,chat,port); //envoie recherche au bon robot
     let reponse=requete.getReply();
@@ -53,9 +79,10 @@ app.post('/chat',function(req,res){
     if(chat==null || chat==undefined){
       let id=Math.floor(Math.random() * Math.floor(50000));
       chats.push(new chatroom(id,[""]))
+      res.render('main',{ "chat": [], "pseudo": pseudo, "reply": "", "id" : id, "port": port, "name": name
+    });
     }
-    res.render('main',{ "chat": [], "pseudo": pseudo, "reply": "", "id" : id, "port": port, "name": name
-  });
+
   }
 });
 
