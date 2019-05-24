@@ -9,11 +9,11 @@ class robot {
 		this.personality=personality;
 		this.bot = new RiveScript();
 		this.bot.loadFile("./brain/"+personality+".rive").then(this.success_handler.bind(this)).catch(this.error_handler);
-
+		this.app = express();
 		this.changePersonality = function (personality) {
-			this.brain = new RiveScript();
+			this.bot = new RiveScript();
 			this.personality = personality;
-			this.brain.loadFile('./brain/'+personality+'.rive').then(this.loading_done).catch(this.loading_error);
+			this.bot.loadFile('./brain/'+personality+'.rive').then(this.success_handler.bind(this)).catch(this.error_handler);
 		}
 
 		this.toString = function(){
@@ -26,15 +26,6 @@ class robot {
 
 		this.getName = function(){
 			return this.name;
-		}
-
-		this.loading_done = function () {
-			console.log("Personalité affecté !");
-			this.brain.sortReplies();
-			this.connectToService();			
-		}
-		this.loading_error = function (error, filename, lineno) {
-			console.log("Erreur lors du chargement du fichier: " + error);
 		}
 	}
 
@@ -110,15 +101,6 @@ class robot {
 	error_handler (loadcount, err) {
 			console.log("Error loading batch #" + loadcount + ": " + err + "\n");
 	}
-
-	// POST to /reply to get a RiveScript reply.
-	
-
-
-	closePort(){
-		this.app.close();
-	}
-
 
 	// All other routes shows the usage to test the /reply route.
 	showUsage(req, res) {

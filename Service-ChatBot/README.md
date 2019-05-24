@@ -15,6 +15,7 @@ Run on port 8080 by default.
 - [ ] Modification of the personality of a bot (PUT)
 - [x] Getting a list of all the bots via HTTP request (GET)
 - [x] Getting a specific bot via his name (GET)
+- [ ] Getting a list of personnality (GET)
 
 ## Random informations 
 
@@ -61,5 +62,6 @@ The bot will take a port which isn't currently used starting with the port 2000.
 ## Ressources:
 
 - Steeve brain : https://github.com/aichaos/rivescript-js/blob/master/eg/brain/begin.rive
-- Translater brain : https://github.com/aifr/rivescriptfr/blob/master/eg/brain/francais-anglais.rive
+
+  ​
 

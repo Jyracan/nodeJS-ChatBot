@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 
 // BOTS
 const FIRST_PORT = 2000;
-const personalityList = ['steeve', 'translater'];
+const personalityList = ['steeve', 'stupid'];
 
 var bots = [];
 var mockBot = new bot('mockBot','steeve', 2020)
@@ -85,6 +85,7 @@ app.post('/', function(req, res){
 
 //DELETE
 app.delete('/:name',function(req, res) {
+	var name = req.params.name;
 	console.log("Suppression du bot "+name);
     if(undefined!=name){
 		res.send(200,'OK');
@@ -94,19 +95,17 @@ app.delete('/:name',function(req, res) {
 });
 //PUT
 app.put('/:name',function(req, res) {
+	var name = req.params.name;
 	console.log("Modification du bot "+name);
     if(undefined!=name){
     	// UPDATE OF THE PERSONALITY
     	var personality = req.body.personality;
 		if(personality != undefined) {
-			bot = getBot(name);
-			bot.changePersonality(personality);
-
+			botToUpdate = getBot(name);
+			botToUpdate.changePersonality(personality);
 			console.log("Personnalité du robot changé !")
 		}
 		//UPDATE OF THE NAME
-
-
 		res.send(200,'OK');
     }else{
 		res.send(404, 'Bot not found ! :(');
