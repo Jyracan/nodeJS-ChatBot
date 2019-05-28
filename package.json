@@ -1,18 +1,22 @@
 {
-  "name": "client",
+  "name": "chatbot",
   "version": "1.0.0",
-  "description": "Interface client pour réaliser la liste de todo",
+  "description": "Web service d'administration d'un chatbot",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Paul-Louis Renard",
+  "author": "Jyracan + Canard000",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.18.3",
+    "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.4",
+    "discord.js": "^11.5.0",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
+    "kill-port": "^1.5.0",
+    "mongoose": "^5.5.8",
+    "rivescript": "^2.0.0",
     "xmlhttprequest": "^1.8.0"
   }
 }
