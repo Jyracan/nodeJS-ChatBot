@@ -37,7 +37,7 @@ function deleteBot(name){
 			delete bots[i];
 		}
 	});
-	
+
 }
 
 

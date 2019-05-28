@@ -3,7 +3,7 @@ const express = require('express')
 const bodyParser = require('body-parser');
 const kill =require('kill-port');
 
-class robot { 	
+class robot {
 	constructor(name, personality, port){
 		this.name = name;
 		this.port = port;

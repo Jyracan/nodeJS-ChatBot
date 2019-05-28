@@ -20,7 +20,7 @@ app.get('/',function(req,res){
 app.post('/choice',function(req,res){ //Permet de choisir le robot
   requete.getAllRobots()
   let pseudo;
-  console.log(req.cookies.pseudo);
+  //console.log(req.cookies.pseudo);
   if(req.cookies.pseudo==undefined){
       pseudo=req.body.pseudo;
       res.cookie("pseudo",pseudo);
@@ -36,11 +36,45 @@ app.post('/choiceBot',function(req,res){ //Permet de choisir le robot
 });
 
 app.post('/admin',function(req,res){
+  res.clearCookie("name");
   res.render('admin')
 });
 
 app.get('/chat',function(req,res){
   res.render('main',{'chat': ""});
+});
+
+app.post('/modify',function(req,res){
+  requete.getAllRobots()
+  let robots=requete.getReply();
+  let robotM;
+  let name=req.body.name;
+  let personalities;
+  let newname=req.body.nom;
+  let newPersonality=req.body.personality
+  if(name!=undefined){
+    res.cookie("name",name);
+    requete.getARobot(name);
+    robotM=requete.getReply();
+    requete.getAllPersonality();
+    personalities=requete.getReply();
+    res.render('modify',{"robots": robots,"name":name,"robot": robotM, "personalities": personalities,"message": ""});
+  }
+
+  else if(newname!=undefined && newPersonality!=undefined){ //On a choisi une nouvelle personnalité ou nom
+    console.log("Nom="+newname);
+    console.log("bot="+req.body.bot);
+    requete.modify(req.body.bot,newname,newPersonality);
+    requete.getAllRobots()
+    robots=requete.getReply();
+    res.render('modify',{"robots": robots,"name":undefined, "message": "Bot modified"});
+  }
+  else{ //On vient d'arriver pour la première fois
+    res.render('modify',{"robots": robots,"name":req.cookies.name, "message": ""});
+  }
+
+
+
 });
 
 app.post('/add',function(req,res){
