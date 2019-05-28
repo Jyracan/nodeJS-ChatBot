@@ -26,7 +26,7 @@ class robot {
 
 		this.delete = function(){
 			console.log(port)
-			kill(this.port,'tcp').then(console.log).catch(console.log);
+			//kill(this.port,'tcp').then(console.log).catch(console.log);
 			this.name = null;
 			this.port = null;
 			this.personality = null;

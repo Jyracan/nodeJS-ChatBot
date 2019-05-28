@@ -12,6 +12,7 @@ app.use(bodyParser.json());
 
 // BOTS
 const FIRST_PORT = 2000;
+var nextPort = 2000;
 const personalityList = ['steeve', 'stupid'];
 
 var bots = [];
@@ -28,7 +29,7 @@ function  getBot(name){
 	});
 	return res;
 }
-function deleteBot(index){
+function deleteBot(name){
 	res = null;
 	bots.forEach(function(bot, i) {
 		console.log(i)
@@ -75,6 +76,8 @@ app.post('/', function(req, res){
 		if(personality == undefined) {personality = "steeve";}
 		var flag = true;
 		var port = FIRST_PORT;
+		var nextPort = nextPort +1;
+		/*
 		while(flag){
 			flag = false;
 			bots.forEach( function(bot, index) {
@@ -84,8 +87,8 @@ app.post('/', function(req, res){
 				}
 			});
 			
-		}
-		bots.push(new bot(name,personality, port));
+		}*/
+		bots.push(new bot(name,personality, nextPort));
 		res.send(200, 'Fait');
 	}
 	else{
@@ -98,8 +101,7 @@ app.delete('/:name',function(req, res) {
 	var name = req.params.name;
 	console.log("Suppression du bot "+name);
     if(name!=undefined){
-    	getBot(name).delete();
-
+    	deleteBot(name);
 		res.send(200,'OK');
     }else{
 		res.send(404, 'Bot not found ! :(');
