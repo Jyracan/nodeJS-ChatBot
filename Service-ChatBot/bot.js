@@ -2,12 +2,15 @@ const RiveScript = require('rivescript')
 const express = require('express')
 const bodyParser = require('body-parser');
 const kill =require('kill-port');
+const Discord = require("discord.js");
+const client = new Discord.Client();
 
 class robot {
-	constructor(name, personality, port){
+	constructor(name, personality, port, uiInterface){
 		this.name = name;
 		this.port = port;
 		this.personality=personality;
+		this.uiInterface = uiInterface;
 		this.bot = new RiveScript();
 		this.bot.loadFile("./brain/"+personality+".rive").then(this.success_handler.bind(this)).catch(this.error_handler);
 		this.app = express();
@@ -78,7 +81,6 @@ class robot {
 					}
 				}
 			}
-
 			// Get a reply from the bot.
 			bot.reply(username, message, this).then(function(reply) {
 				// Get all the user's vars back out of the bot to include in the response.
@@ -97,42 +99,48 @@ class robot {
 				});
 			});
 		}
+		if(this.uiInterface == 'discord'){
+			console.log("Connexion sur discord");
+			client.on('ready', () => {
+ 			 	console.log(`Logged in as ${client.user.tag}!`);
+			});
 
+			client.on('message', msg => {
+				console.log("Reception d'un message")
+			  	var chaine=msg.content;
+			  	console.log(chaine)
+			  	var position = chaine.indexOf("<@582915958516088835>");
+			  	if(position!=-1){
+				    let message=msg.content.replace("<@582915958516088835>","");
+					bot.reply(msg.author.username, message, this).then(function (reply){
+						msg.reply(reply);
+					}).catch(function(err) {
+						console.log("Une erreur à eu lieu !\n" + err)
+					});			
+				}
+			});
+			//TODO : Changer ça en port
+			client.login('NTgyOTE1OTU4NTE2MDg4ODM1.XO0w2w.EHwOudq8e5lyHdY6Cux92piVOlI');
+		}
+		
+		if(this.uiInterface == 'sms'){
+			console.log("Connexion sur sms");
+			// Parse application/json inputs.
+			this.app.use(bodyParser.json());
+			this.app.set("json spaces", 4);
 
-		// Parse application/json inputs.
-		this.app.use(bodyParser.json());
-		this.app.set("json spaces", 4);
+			// Set up routes.
+			this.app.post("/reply", getReply);
 
-		// Set up routes.
-		this.app.post("/reply", getReply);
-		this.app.get("/", this.showUsage);
-		this.app.get("*", this.showUsage);
-
-		// Start listening.
-		this.app.listen(this.port, function() {
-			console.log("The bot is listening (normaly ...)");
-		});
+			// Start listening.
+			this.app.listen(this.port, function() {
+				console.log("The bot is listening (normaly ...)");
+			});
+		}
 	}
 
 	error_handler (loadcount, err) {
 			console.log("Error loading batch #" + loadcount + ": " + err + "\n");
-	}
-
-	// All other routes shows the usage to test the /reply route.
-	showUsage(req, res) {
-		var egPayload = {
-			"username": "soandso",
-			"message": "Hello bot",
-			"vars": {
-				"name": "Soandso"
-			}
-		};
-		res.writeHead(200, {"Content-Type": "text/plain"});
-		res.write("Usage: curl -i \\\n");
-		res.write("   -H \"Content-Type: application/json\" \\\n");
-		res.write("   -X POST -d '" + JSON.stringify(egPayload) + "' \\\n");
-		res.write("   http://localhost:2001/reply");
-		res.end();
 	}
 }
 

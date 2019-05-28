@@ -16,7 +16,7 @@ var nextPort = 2000;
 const personalityList = ['steeve', 'stupid'];
 
 var bots = [];
-var mockBot = new bot('mockBot','steeve', 2000)
+var mockBot = new bot('mockBot','steeve', 2000, 'discord')
 bots.push(mockBot);
 
 
@@ -89,7 +89,7 @@ app.post('/', function(req, res){
 			});
 			
 		}*/
-		bots.push(new bot(name,personality, nextPort));
+		bots.push(new bot(name,personality, nextPort, 'sms'));
 		res.send(200, 'Fait');
 	}
 	else{
