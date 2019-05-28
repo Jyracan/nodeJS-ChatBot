@@ -70,13 +70,14 @@ app.post('/', function(req, res){
 	console.log('Demande de création d\'un bot');
 	if(req.is('json')){
 		var name = req.body.name;
-		if(name == undefined) {name = "Anne Onyme";}
+		if(name == undefined || name == "") {name = "Anne Onyme";}
 		console.log('Son nom sera ' + name);
 		var personality = req.body.personality;
 		if(personality == undefined) {personality = "steeve";}
 		var flag = true;
 		var port = FIRST_PORT;
-		var nextPort = nextPort +1;
+		nextPort = nextPort +1;
+		console.log("Nouveau port : " + nextPort);
 		/*
 		while(flag){
 			flag = false;
