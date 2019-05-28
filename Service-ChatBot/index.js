@@ -36,7 +36,7 @@ function deleteBot(index){
 			delete bots[i];
 		}
 	});
-	
+
 }
 
 
@@ -83,7 +83,7 @@ app.post('/', function(req, res){
 					port = port +1;
 				}
 			});
-			
+
 		}
 		bots.push(new bot(name,personality, port));
 		res.send(200, 'Fait');
@@ -99,7 +99,6 @@ app.delete('/:name',function(req, res) {
 	console.log("Suppression du bot "+name);
     if(name!=undefined){
     	getBot(name).delete();
-
 		res.send(200,'OK');
     }else{
 		res.send(404, 'Bot not found ! :(');
