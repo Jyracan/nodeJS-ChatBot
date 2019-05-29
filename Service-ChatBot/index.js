@@ -2,7 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const RiveScript = require('rivescript');
 const bot = require('./bot.js');
-
 const app = express();
 const port = 8080;
 
@@ -14,6 +13,7 @@ app.use(bodyParser.json());
 const FIRST_PORT = 2000;
 var nextPort = 2000;
 const personalityList = ['steeve', 'stupid'];
+const interfaceList=['discord','sms'];
 
 var bots = [];
 var mockBot = new bot('mockBot','steeve', 2000, 'discord')
@@ -53,6 +53,10 @@ app.get('/', function(req, res){
 app.get('/aide/personnalites', function(req, res){
 	console.log("Demande de la liste des personnalités");
 	res.json(personalityList);
+});
+app.get('/aide/interface', function(req, res){
+	console.log("Demande de la liste des interfaces");
+	res.json(interfaceList);
 });
 app.get('/:name', function(req, res){
 	console.log('On demande les informations du bot '+req.params.name );
@@ -135,6 +139,7 @@ app.put('/:name',function(req, res) {
 		res.send(404, 'Bot not found ! :(');
 	}
 });
+
 
 
 app.listen(port, () => console.log(`Web service running on : http://localhost:${port}`));

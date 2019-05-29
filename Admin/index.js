@@ -1,7 +1,6 @@
 var express=require('express');                     //Gérez un serveur http
 var parser=require('body-parser');                  //Module pour parser les fichiers json
 var requete=require('./requete.js');
-var chatroom=require('./chatroom');
 var cookieParser = require('cookie-parser')
 var app=express();
 
@@ -11,10 +10,16 @@ app.use(parser.urlencoded({ extended: true }));			//Autorise le découpage de l'
 app.use(parser.json());															//Autorise le découpage de json
 app.use(cookieParser())
 
-let chats=[];
+
 
 app.get('/',function(req,res){
-  res.render('connexion');
+  res.clearCookie("name");
+  res.render('admin');
+});
+
+app.post('/',function(req,res){
+  res.clearCookie("name");
+  res.render('admin');
 });
 
 app.post('/choice',function(req,res){ //Permet de choisir le robot
@@ -29,20 +34,7 @@ app.post('/choice',function(req,res){ //Permet de choisir le robot
   res.render('choix');
 });
 
-app.post('/choiceBot',function(req,res){ //Permet de choisir le robot
-  requete.getAllRobots()
-  let robots=requete.getReply();
-  res.render('choixrobot',{"robots":robots});
-});
 
-app.post('/admin',function(req,res){
-  res.clearCookie("name");
-  res.render('admin')
-});
-
-app.get('/chat',function(req,res){
-  res.render('main',{'chat': ""});
-});
 
 app.post('/modify',function(req,res){
   requete.getAllRobots()
@@ -93,44 +85,8 @@ app.post('/add',function(req,res){
 
 });
 
-app.post('/chat',function(req,res){
-  let chat=req.body.personne; //message de l'utilisateur
-  let pseudo=req.cookies.pseudo; //Son pseudo
-  let id=req.body.id;         //id de la chatroom
-  let name=req.body.name;     //nom robot
-
-  requete.getARobot(name);
-
-  let port=requete.getReply().port;     //port du robot
 
 
 
-  if((chat!=null || chat!=undefined) && (pseudo!=null || pseudo!=undefined)){
-    requete.reply(pseudo,chat,port); //envoie recherche au bon robot
-    let reponse=requete.getReply();
-    let conv1=pseudo+" : "+chat;
-    let conv2=name+" : "+reponse.reply;
-    let ind=0;
-    chats.forEach(function(item, index, array) {  //recherche de la bonne conversation
-      if(item.getId()==id){
-        ind=index;
-      }
-    });
-    chats[ind].getConv().push(conv1); //Ajoute conversation au tableau
-    chats[ind].getConv().push(conv2);
-    res.render('main',{"chat": chats[ind].getConv(), "id": id, "port" : port, "name": name, "pseudo": pseudo});
-  }
-  else{ //init car on vient d'arriver sans message
-    if(chat==null || chat==undefined){
-      let id=Math.floor(Math.random() * Math.floor(50000));
-      chats.push(new chatroom(id,[""]))
-      res.render('main',{ "chat": [], "reply": "", "id" : id, "port": port, "name": name, "pseudo" : pseudo
-    });
-    }
-
-  }
-});
-
-
-app.listen(3030);
-console.log("Listening on 3030")
+app.listen(3031);
+console.log("Listening on 3031")
