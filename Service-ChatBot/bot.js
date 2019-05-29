@@ -48,6 +48,9 @@ class robot {
 		this.getName = function(){
 			return this.name;
 		}
+		this.getUiInterface = function(){
+			return this.uiInterface;
+		}
 	}
 
 	// Send a JSON error to the browser.
@@ -116,13 +119,13 @@ class robot {
 						msg.reply(reply);
 					}).catch(function(err) {
 						console.log("Une erreur à eu lieu !\n" + err)
-					});			
+					});
 				}
 			});
 			//TODO : Changer ça en port
 			client.login('NTgyOTE1OTU4NTE2MDg4ODM1.XO0w2w.EHwOudq8e5lyHdY6Cux92piVOlI');
 		}
-		
+
 		if(this.uiInterface == 'sms'){
 			console.log("Connexion sur sms");
 			// Parse application/json inputs.

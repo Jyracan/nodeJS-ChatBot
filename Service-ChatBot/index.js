@@ -17,7 +17,9 @@ const interfaceList=['discord','sms'];
 
 var bots = [];
 var mockBot = new bot('mockBot','steeve', 2000, 'discord')
+var R2D2= new bot('R2D2','steeve',2001,'sms');
 bots.push(mockBot);
+bots.push(R2D2);
 
 
 function  getBot(name){
@@ -47,6 +49,16 @@ app.get('/', function(req, res){
 	var listBot =[];
 	bots.forEach( function(bot, index) {
 		listBot.push(bot.toString());
+	});
+	res.json(listBot);
+});
+app.get('/sms',function(req,res){
+	console.log("Demande de la liste des bots sms")
+	var listBot=[]
+	bots.forEach( function(bot, index) {
+		if(bot.getUiInterface()=="sms"){
+			listBot.push(bot.toString());
+		}
 	});
 	res.json(listBot);
 });
@@ -91,7 +103,7 @@ app.post('/', function(req, res){
 					port = port +1;
 				}
 			});
-			
+
 		}*/
 		bots.push(new bot(name,personality, nextPort, 'sms'));
 		res.send(200, 'Fait');

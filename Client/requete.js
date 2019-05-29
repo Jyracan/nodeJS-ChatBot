@@ -50,10 +50,10 @@ exports.reply=function(username,msg,id){
 /**
 * Cette fonction permet d'obtenir la liste des robots
 */
-exports.getAllRobots=function(){
+exports.getAllRobotsSMS=function(){
   var invocation =new XMLHttpRequest();
   if(invocation){
-    invocation.open('GET', 'http://localhost:8080', false);
+    invocation.open('GET', 'http://localhost:8080/sms', false);
     invocation.setRequestHeader('Content-Type', 'application/json');
     invocation.onreadystatechange = function(){
       if (invocation.readyState == 4){
@@ -76,6 +76,7 @@ exports.getAllRobots=function(){
     console.error("No Invocation TookPlace At All");
   }
 }
+
 
 /**
 * Cette fonction permet d'obtenir les informations sur un robot
