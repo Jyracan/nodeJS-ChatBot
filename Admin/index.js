@@ -17,10 +17,7 @@ app.get('/',function(req,res){
   res.render('admin');
 });
 
-app.post('/',function(req,res){
-  res.clearCookie("name");
-  res.render('admin');
-});
+
 
 app.post('/choice',function(req,res){ //Permet de choisir le robot
   requete.getAllRobots()
@@ -83,6 +80,34 @@ app.post('/add',function(req,res){
       res.render('ajout',{"personalities": personalities, "ajout": "Successfully added!","interfaces": interfaces});
   }
 
+});
+
+app.post('/delete',function(req,res){
+  requete.getAllRobots();
+  let robots=requete.getReply();
+  res.render('delete',{"robots" :robots})
+
+});
+
+app.post('/deleteBot',function(req,res){
+  let name=req.body.name;
+  let message="";
+  if (name!=undefined && name!=""){
+    requete.delete(name);
+    if(res.statusCode==200){
+      message="The bot was deleted!"
+    }
+    else{
+      message="A error happens!"
+    }
+  }
+  res.render('deleteSucess',{"message": message,"name": name});
+});
+
+app.get('/botList',function(req,res){
+  requete.getAllRobots();
+  let robots=requete.getReply();
+  res.render("list",{"robots": robots});
 });
 
 

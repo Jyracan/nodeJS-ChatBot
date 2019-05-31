@@ -41,7 +41,8 @@ class robot {
 			return {
 				name : this.name,
 				personality : this.personality,
-				port : this.port
+				port : this.port,
+				uiInterface : this.uiInterface
 			}
 		}
 

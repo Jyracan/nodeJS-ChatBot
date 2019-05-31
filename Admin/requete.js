@@ -201,7 +201,7 @@ exports.createARobot=function(name,personality,interface){
 }
 
 /**
-* Cette fonction permet d'obtenir la liste des personalités
+* Cette fonction permet de modifier un robot (on ne peut modifier sa personnalité)
 */
 exports.modify=function (namebot,newname,personality) {
   var invocation =new XMLHttpRequest();
@@ -226,6 +226,36 @@ exports.modify=function (namebot,newname,personality) {
       }
     };
     invocation.send(JSON.stringify(name));
+  }else{
+    console.error("No Invocation TookPlace At All");
+  }
+}
+
+/**
+* Cette fonction permet de modifier le robot dont le nom est en paramètre
+*/
+exports.delete=function (namebot) {
+  var invocation =new XMLHttpRequest();
+  if(invocation){
+    invocation.open('DELETE', 'http://localhost:8080/'+namebot, false);
+    invocation.setRequestHeader('Content-Type', 'application/json');
+    invocation.onreadystatechange = function(){
+      if (invocation.readyState == 4){
+        if (invocation.status == 200){
+      try{
+            reponse = JSON.parse(invocation.responseText);
+      }catch(err){
+        console.log("invocation.responseText "+invocation.responseText);
+      }
+
+        }else{
+          console.error("Invocation Errors Occured " + invocation.readyState + " and the status is " + invocation.status);
+        }
+      }else{
+        console.log("currently the application is at" + invocation.readyState);
+      }
+    };
+    invocation.send(null);
   }else{
     console.error("No Invocation TookPlace At All");
   }

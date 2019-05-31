@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 
 // BOTS
 const FIRST_PORT = 2000;
-var nextPort = 2000;
+var nextPort = 2001;
 const personalityList = ['steeve', 'stupid'];
 const interfaceList=['discord','sms'];
 

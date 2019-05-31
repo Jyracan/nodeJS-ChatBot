@@ -31,6 +31,8 @@
     <br>
     Old personality : <%=robot.personality%>
     <br>
+    /!\ You can't change the personality currently /!\
+    <br>
     New personality :     <select  name="personality">
           <% personalities.forEach(function(personality){ %>
               <option value="<%=personality%>"><%=personality%></option> <!-- Récupération du port-->
@@ -41,7 +43,7 @@
     <input type="submit" name="" value="submit">
   </form>
 <%} %>
-<form action="/" method="post">
+<form action="/" method="get">
   <input type="submit" value="back">
 </form>
 
