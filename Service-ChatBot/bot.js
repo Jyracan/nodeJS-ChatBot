@@ -43,7 +43,10 @@ class robot {
 				name : this.name,
 				personality : this.personality,
 				port : this.port,
-				uiInterface : this.uiInterface
+				uiInterface : this.uiInterface,
+				clientID : this.clientID,
+				token : this.token
+
 			}
 		}
 
