@@ -58,6 +58,26 @@
               <% }); %>
         </select>
         <input type="hidden" name="bot" value="<%=robot.name%>">
+        <h2>Old interface : </h2> <%=robot.uiInterface%>
+        <br>
+        <h2>New interface : </h2>
+        <select  name="interface">
+          <% interfaces.forEach(function(interface){ %>
+              <option value="<%=interface%>"><%=interface%></option> <!-- Récupération de l'interface-->
+
+              <% }); %>
+              <br>
+              <%if(robot.uiInterface=='discord'){ %>
+                <h2>Old token : </h2> <%=robot.token%>
+                <br>
+                <h2>Token (if discord) : </h2>
+                <input type="text" name="token" value="<%=robot.token%>">
+                <br>
+                <h2>Old clientID : </h2> <%=robot.clientID%>
+                <br>
+                ClientID (if discord) :
+                <input type="text" name="clientID" value="<%=robot.clientID%>">
+                <br>
     <input type="submit" name="" value="submit">
   </form>
 <%} %>
