@@ -41,6 +41,8 @@ app.post('/modify',function(req,res){
   let personalities;
   let newname=req.body.nom;
   let newPersonality=req.body.personality
+  let token=req.body.token;
+  let clientID=req.body.cliendID;
   if(name!=undefined){
     res.cookie("name",name);
     requete.getARobot(name);
@@ -67,6 +69,8 @@ app.post('/modify',function(req,res){
 app.post('/add',function(req,res){
   let name=req.body.name;
   let personality=req.body.personality;
+  let token=req.body.token;
+  let clientID=req.body.cliendID;
   requete.getAllPersonality();
   let personalities=requete.getReply();
   requete.getAllInterface();
@@ -76,7 +80,7 @@ app.post('/add',function(req,res){
     res.render('ajout',{"personalities": personalities, "ajout": "","interfaces": interfaces});
   }
   else{
-      requete.createARobot(name,personality);
+      requete.createARobot(name,personality,token,clientID);
       res.render('ajout',{"personalities": personalities, "ajout": "Successfully added!","interfaces": interfaces});
   }
 
