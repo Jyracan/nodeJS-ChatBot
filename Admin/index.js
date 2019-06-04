@@ -76,6 +76,7 @@ app.post('/add',function(req,res){
   requete.getAllInterface();
   let interfaces=requete.getReply();
   let interface=req.body.interface;
+  console.log(interface);
   if(name==undefined){
     res.render('ajout',{"personalities": personalities, "ajout": "","interfaces": interfaces, "interface": interface});
   }

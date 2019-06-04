@@ -46,19 +46,15 @@
     <select  name="interface">
       <% interfaces.forEach(function(interface){ %>
           <option value="<%=interface%>"><%=interface%></option> <!-- Récupération de l'interface-->
-
           <% }); %>
-          <br>
-          Token (if discord) :
-          <% if(interface=='discord'){ %>
-            <br>
-            <input type="text" name="token" value="yourToken">
-            <br>
-            ClientID (if discord) :
-            <br>
-            <input type="text" name="clientID" value="yourClientID">
-            <br>
-        <%  } %>
+        <br>
+        <p>Token (if discord) :   </p>     
+        <input type="text" name="token" value="yourToken">
+        <br>
+        <p>ClientID (if discord) :</p>
+        <br>
+        <input type="text" name="clientID" value="yourClientID">
+        <br>
     </select>
     <input type="submit" name="" value="Submit">
   </form>

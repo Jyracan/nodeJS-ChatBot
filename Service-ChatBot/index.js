@@ -88,11 +88,22 @@ app.post('/', function(req, res){
 		console.log('Son nom sera ' + name);
 		var personality = req.body.personality;
 		if(personality == undefined) {personality = "steeve";}
-		var flag = true;
+		var uiInterface = req.body.interface;
+		if(uiInterface == undefined){
+			uiInterface ='sms';
+		}
+		var token =req.body.token;
+		if(token == ''){
+			res.send(400, 'Si vous voulez créer un bot Discord il faut renseigner le token !')
+		}
+		var clientID =req.body.clientID;
+		if(clientID == ''){
+			res.send(400, 'Si vous voulez créer un bot Discord il faut renseigner clientID !')
+		}
 		var port = FIRST_PORT;
 		nextPort = nextPort +1;
 		console.log("Nouveau port : " + nextPort);
-		bots.push(new bot(name,personality, nextPort, 'sms'));
+		bots.push(new bot(name,personality, nextPort, uiInterface, clientID));
 		res.send(200, 'Fait');
 	}
 	else{

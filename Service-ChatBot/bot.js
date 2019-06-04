@@ -9,11 +9,7 @@ class robot {
 		this.name = name;
 		this.port = port;
 		this.personality=personality;
-		if(uiInterface == undefined){
-			this.uiInterface='sms'
-		}else{
-			this.uiInterface = uiInterface;
-		}
+		this.uiInterface = uiInterface;
 		this.token = token;
 		this.clientID = clientID
 		this.bot = new RiveScript();
