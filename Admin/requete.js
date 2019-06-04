@@ -209,10 +209,17 @@ exports.createARobot=function(name,personality,interface,token,clientID){
 /**
 * Cette fonction permet de modifier un robot (on ne peut modifier sa personnalité)
 */
-exports.modify=function (namebot,newname,personality) {
+exports.modify=function (namebot,newname,personality,interface,token,clientID) {
   var invocation =new XMLHttpRequest();
   if(invocation){
-    let name={"name": newname };
+    let name;
+    if(token!="" && clientID!=""){
+      name={"name": newname, "interface": interface, "token" : token, "clientID" : clientID};
+    }
+    else{
+      name={"name": newname, "interface": interface};
+    }
+
     invocation.open('PUT', 'http://localhost:8080/'+namebot, false);
     invocation.setRequestHeader('Content-Type', 'application/json');
     invocation.onreadystatechange = function(){

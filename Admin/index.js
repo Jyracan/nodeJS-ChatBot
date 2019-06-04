@@ -40,6 +40,9 @@ app.post('/modify',function(req,res){
   let name=req.body.name;
   let personalities;
   let newname=req.body.nom;
+  requete.getAllInterface();
+  let interfaces=requete.getReply();
+  let interface=req.body.interface
   let newPersonality=req.body.personality
   let token=req.body.token;
   let clientID=req.body.cliendID;
@@ -49,17 +52,17 @@ app.post('/modify',function(req,res){
     robotM=requete.getReply();
     requete.getAllPersonality();
     personalities=requete.getReply();
-    res.render('modify',{"robots": robots,"name":name,"robot": robotM, "personalities": personalities,"message": ""});
+    res.render('modify',{"robots": robots,"name":name,"robot": robotM, "personalities": personalities,"message": "", "interfaces": interfaces});
   }
 
   else if(newname!=undefined && newPersonality!=undefined){ //On a choisi une nouvelle personnalité ou nom
-    requete.modify(req.body.bot,newname,newPersonality);
+    requete.modify(req.body.bot,newname,newPersonality,);
     requete.getAllRobots()
     robots=requete.getReply();
-    res.render('modify',{"robots": robots,"name":undefined, "message": "Bot modified"});
+    res.render('modify',{"robots": robots,"name":undefined, "message": "Bot modified","interfaces": interfaces});
   }
   else{ //On vient d'arriver pour la première fois
-    res.render('modify',{"robots": robots,"name":req.cookies.name, "message": ""});
+    res.render('modify',{"robots": robots,"name":req.cookies.name, "message": "","interfaces": interfaces});
   }
 
 
