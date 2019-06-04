@@ -65,6 +65,14 @@ if you want to change the name of your bot you can send a PUT request at http://
 ```JSon
 {"name" : "test"}
 ```
+## How to obtain a token to use the ChatBot service on Discord ?
+
+Go to this link : https://discordbots.org/bot/new
+After logging on your discord account, choose discord.js as bot's library. 
+You'll need a ClientID. Go here to get one by creating an application : https://discordapp.com/developers/applications/
+The other fields are up to you !
+
+Finally, to get your token, select your application, select bot in the settings. Click on copy in the token field to copy it ! 
 
 ## Ressources:
 
