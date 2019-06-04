@@ -3,37 +3,55 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-  <title>Bots'list</title>
+  <title>Bot List</title>
 
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
+<style type="text/css">
+    #center{
+      display: flex;
+      text-align: center;
+      flex-direction: column;
+      margin-top: 2%;
+      margin-bottom: 2%;
+    }
+    table {
+      margin: auto;
+      border:3px solid;
+    }
+    td {
+      text-align :center;
+    }
+</style>
+
 <body>
-  <br>
-  <i class="material-icons">android</i>
-  &nbsp;Bots' list&nbsp;
-  <i class="material-icons">android</i>
-  <form action="/" method="get">
-    <input type="submit" name="" value="back">
-  </form>
+  <div id="center">
+    <i class="material-icons">android</i>
+    <h1>Bot List</h1>
+    <i class="material-icons">android</i>
+  </div>
 
   <table id="table">
-  <tr>
-    <th>Bot's name</th>
-    <th>Port</th>
-    <th>Personality</th>
-    <th>UiInterface</th>
-  </tr>
-  <% robots.forEach(function(robot){ %>
-      <tr>
-        <td><%=robot.name%></td>
-        <td><%=robot.port%></td>
-        <td><%=robot.personality%></td>
-        <td><%=robot.uiInterface%></td>
-      </tr>
-      <% }); %>
+    <tr>
+      <th>Bot's name</th>
+      <th>Port</th>
+      <th>Personality</th>
+      <th>UiInterface</th>
+    </tr>
+    <% robots.forEach(function(robot){ %>
+        <tr>
+          <td><%=robot.name%></td>
+          <td><%=robot.port%></td>
+          <td><%=robot.personality%></td>
+          <td><%=robot.uiInterface%></td>
+        </tr>
+        <% }); %>
+  </table>
 
-</table>
+  <form action="/" method="get" id="center">
+    <input type="submit" name="" value="back">
+  </form>
 
 </body>
 </html>

@@ -8,13 +8,31 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
+<style type="text/css">
+  #center{
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    margin-top: 2%;
+    margin-bottom: 2%;
+  }
+  #title{
+    margin-left: center;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+  }
+</style>
 <body>
   <%=message%>
-  <br>
-  <i class="material-icons">android</i>
-  &nbsp;Modify a chatBot&nbsp;
-  <i class="material-icons">android</i>
-  <form action="modify" method="post">
+    <br>
+  <div id="title">
+    <i class="material-icons">android</i>
+    <h1>Modify Bot</h1>
+    <i class="material-icons">android</i>
+  </div>
+
+  <form action="modify" method="post" id="center">
     <select  name="name">
       <% robots.forEach(function(robot){ %>
           <option value="<%=robot.name%>"><%=robot.name%></option> <!-- Récupération du nom du bot-->
@@ -24,16 +42,16 @@
     <input type="submit" name="" value="Submit">
   </form>
 <%if(name!=undefined){ %>
-  <form action="modify" method="post">
-    Old name : <%=robot.name%>
+  <form action="modify" method="post" id="center">
+    <h2>Old name :</h2> <%=robot.name%>
     <br>
-    New name : <input type="text" name="nom" value="<%=robot.name%>" >
+    <h2>New name :</h2> <input type="text" name="nom" value="<%=robot.name%>" >
     <br>
-    Old personality : <%=robot.personality%>
+    <h2>Old personality :</h2> <%=robot.personality%>
     <br>
     /!\ You can't change the personality currently /!\
     <br>
-    New personality :     <select  name="personality">
+    <h2>New personality :</h2>     <select  name="personality">
           <% personalities.forEach(function(personality){ %>
               <option value="<%=personality%>"><%=personality%></option> <!-- Récupération du port-->
 
@@ -43,7 +61,7 @@
     <input type="submit" name="" value="submit">
   </form>
 <%} %>
-<form action="/" method="get">
+<form action="/" method="get" id="center">
   <input type="submit" value="back">
 </form>
 

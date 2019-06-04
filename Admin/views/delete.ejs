@@ -8,12 +8,29 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
+<style type="text/css">
+  #center{
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    margin-top: 2%;
+    margin-bottom: 2%;
+  }
+  #title{
+    margin-left: center;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+  }
+</style>
+
 <body>
-  <br>
-  <i class="material-icons">android</i>
-  &nbsp;Delete a chatBot&nbsp;
-  <i class="material-icons">android</i>
-  <form action="deleteBot" method="post">
+  <div id = "title">
+    <i class="material-icons">android</i>
+    <h1>Delete a chatBot</h1>
+    <i class="material-icons">android</i>
+  </div>
+  <form action="deleteBot" method="post" id="center">
     <select  name="name">
       <% robots.forEach(function(robot){ %>
           <option value="<%=robot.name%>"><%=robot.name%></option> <!-- Récupération du nom du bot-->
@@ -23,7 +40,7 @@
     <input type="submit" name="" value="Submit">
   </form>
 
-  <form action="/" method="get">
+  <form action="/" method="get" id="center">
     <input type="submit" name="" value="back">
   </form>
 
