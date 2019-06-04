@@ -93,18 +93,7 @@ app.post('/', function(req, res){
 		var flag = true;
 		var port = FIRST_PORT;
 		nextPort = nextPort +1;
-		console.log("Nouveau port : " + nextPort);
-		/*
-		while(flag){
-			flag = false;
-			bots.forEach( function(bot, index) {
-				if(bot.port == port){
-					flag = true;
-					port = port +1;
-				}
-			});
-
-		}*/
+		console.log("Nouveau port : " + nextPort);=
 		bots.push(new bot(name,personality, nextPort, 'sms'));
 		res.send(200, 'Fait');
 	}

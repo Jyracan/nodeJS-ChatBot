@@ -1,16 +1,17 @@
 const RiveScript = require('rivescript')
 const express = require('express')
 const bodyParser = require('body-parser');
-const kill =require('kill-port');
 const Discord = require("discord.js");
 const client = new Discord.Client();
 
 class robot {
-	constructor(name, personality, port, uiInterface){
+	constructor(name, personality, port, uiInterface, token, clientID){
 		this.name = name;
 		this.port = port;
 		this.personality=personality;
 		this.uiInterface = uiInterface;
+		this.token = token;
+		this.clientID = clientID
 		this.bot = new RiveScript();
 		this.bot.loadFile("./brain/"+personality+".rive").then(this.success_handler.bind(this)).catch(this.error_handler);
 		this.app = express();
@@ -113,18 +114,21 @@ class robot {
 				console.log("Reception d'un message")
 			  	var chaine=msg.content;
 			  	console.log(chaine)
-			  	var position = chaine.indexOf("<@582915958516088835>");
+			  	var position = chaine.indexOf("<@"+this.clientID+">");
 			  	if(position!=-1){
-				    let message=msg.content.replace("<@582915958516088835>","");
+				    let message=msg.content.replace("<@"+this.clientID+">","");
 					bot.reply(msg.author.username, message, this).then(function (reply){
 						msg.reply(reply);
 					}).catch(function(err) {
-						console.log("Une erreur à eu lieu !\n" + err)
+						console.log("An error occured !\n" + err)
 					});
 				}
 			});
-			//TODO : Changer ça en port
-			client.login('NTgyOTE1OTU4NTE2MDg4ODM1.XO0w2w.EHwOudq8e5lyHdY6Cux92piVOlI');
+			if(this.token != undefined){
+				client.login(this.token);
+			}else{
+				console.log("No token send");
+			}
 		}
 
 		if(this.uiInterface == 'sms'){
