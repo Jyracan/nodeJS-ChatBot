@@ -8,11 +8,22 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
+
+<style type="text/css">
+  #center{
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    margin-top: 2%;
+    margin-bottom: 2%;
+  }
+</style>
 <body>
+<h1 id="center">Connection to the ChatBot platform</h1>
 <label for="pseudo">Your pseudo</label>
 <form  action="/choiceBot" method="post">
   <input id="pseudo" type="text" name="pseudo" required>
-  <input type="submit" name="" value="Submit">
+  <input type="submit" name="" value="Submit" >
 </form>
 </body>
 </html>

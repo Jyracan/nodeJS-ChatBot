@@ -4,8 +4,18 @@
     <meta charset="utf-8">
     <title></title>
   </head>
+<style type="text/css">
+  #center{
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    margin-top: 2%;
+    margin-bottom: 2%;
+  }
+</style>
   <body>
-    <form action="chat" method="post">
+    <h1 id="center">Choose the bot you want to chat with</h1>
+    <form action="chat" method="post" id="center">
       <select id="list" name="name">
         <% robots.forEach(function(robot){ %>
     				<option value="<%=robot.name%>"><%=robot.name%></option> <!-- Récupération du port-->
