@@ -170,10 +170,16 @@ exports.getAllInterface=function () {
 /**
 * Cette fonction permet de créer un robot en fonction de ce que l'utilisateur a rentré
 */
-exports.createARobot=function(name,personality,interface){
+exports.createARobot=function(name,personality,interface,token,clientID){
   var invocation =new XMLHttpRequest();
   if(invocation){
-    let robot={name: name,personality: personality,interface: interface };
+    let robot;
+    if(token==undefined && clientID==undefined){
+      robot={name: name,personality: personality,interface: interface };
+    }
+    else{
+      robot={name: name,personality: personality,interface: interface, token : token, clientID: clientID };
+    }
     invocation.open('POST', 'http://localhost:8080', true);
     invocation.setRequestHeader('Content-Type', 'application/json');
     invocation.onreadystatechange = function(){
