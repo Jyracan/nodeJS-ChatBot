@@ -75,13 +75,13 @@ app.post('/add',function(req,res){
   let personalities=requete.getReply();
   requete.getAllInterface();
   let interfaces=requete.getReply();
-
+  let interface=req.body.interface;
   if(name==undefined){
-    res.render('ajout',{"personalities": personalities, "ajout": "","interfaces": interfaces});
+    res.render('ajout',{"personalities": personalities, "ajout": "","interfaces": interfaces, "interface": interface});
   }
   else{
-      requete.createARobot(name,personality,token,clientID);
-      res.render('ajout',{"personalities": personalities, "ajout": "Successfully added!","interfaces": interfaces});
+      requete.createARobot(name,personality,interface,token,clientID);
+      res.render('ajout',{"personalities": personalities, "ajout": "Successfully added!","interfaces": interfaces, "interface": interface});
   }
 
 });
