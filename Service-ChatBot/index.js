@@ -11,14 +11,12 @@ app.use(bodyParser.json());
 
 // BOTS
 const FIRST_PORT = 2000;
-var nextPort = 2001;
+var nextPort = 2000;
 const personalityList = ['steeve', 'stupid'];
 const interfaceList=['discord','sms'];
 
 var bots = [];
-var mockBot = new bot('mockBot','steeve', 2000, 'discord')
-var R2D2= new bot('R2D2','steeve',2001,'sms');
-bots.push(mockBot);
+var R2D2= new bot('R2D2','steeve',2000,'sms');
 bots.push(R2D2);
 
 
@@ -93,7 +91,7 @@ app.post('/', function(req, res){
 		var flag = true;
 		var port = FIRST_PORT;
 		nextPort = nextPort +1;
-		console.log("Nouveau port : " + nextPort);=
+		console.log("Nouveau port : " + nextPort);
 		bots.push(new bot(name,personality, nextPort, 'sms'));
 		res.send(200, 'Fait');
 	}
