@@ -174,7 +174,7 @@ exports.createARobot=function(name,personality,interface,token,clientID){
   var invocation =new XMLHttpRequest();
   if(invocation){
     let robot;
-    if(token==undefined && clientID==undefined){
+    if(token=="" && clientID==""){
       robot={name: name,personality: personality,interface: interface };
     }
     else{
