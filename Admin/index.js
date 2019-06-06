@@ -57,9 +57,10 @@ app.post('/modify',function(req,res){
 
   else if(newname!=undefined && newPersonality!=undefined){ //On a choisi une nouvelle personnalité ou nom
     requete.modify(req.body.bot,newname,newPersonality,interface,token,clientID);
+    let message=requete.getReply();
     requete.getAllRobots()
     robots=requete.getReply();
-    let message=req.body;
+
     res.render('modify',{"robots": robots,"name":undefined, "message": message,"interfaces": interfaces});
   }
   else{ //On vient d'arriver pour la première fois

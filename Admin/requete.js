@@ -226,7 +226,7 @@ exports.modify=function (namebot,newname,personality,interface,token,clientID) {
       if (invocation.readyState == 4){
         if (invocation.status == 200){
       try{
-            reponse = JSON.parse(invocation.responseText);
+            reponse = invocation.responseText;
       }catch(err){
         console.log("invocation.responseText "+invocation.responseText);
       }
