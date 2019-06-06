@@ -3,15 +3,14 @@
 Run on port 8080 by default.
 
 
-
 ## What this service does : 
 
 - [x] Creation of an object robot 
 - [x] Creation of a collection of robot
 - [x] Instanciation of a bot via HTTP request (POST)
 - [X] Destruction of a bot via HTTP request (DEL)
-- [ ] Modification of a bot via HTTP request (PUT)
-- [ ] Modification of the interface of a bot (PUT)
+- [X] Modification of the name of a bot via HTTP request (PUT)
+- [X] Modification of the interface of a bot (PUT)
 - [ ] Modification of the personality of a bot (PUT)
 - [x] Getting a list of all the bots via HTTP request (GET)
 - [x] Getting a specific bot via his name (GET)
@@ -19,7 +18,7 @@ Run on port 8080 by default.
 
 ## Random informations 
 
-When you launch this web service a bot is create is name is mockBot and he as the personnality of Steeve.
+When you launch this web service a bot is create is name is R2D2 and he as the personnality of Steeve.
 
 ## How to GET the list of bots ?
 
@@ -29,13 +28,19 @@ You will receive an answer formated like this :
 
 ```JSON
 [{
-  "name": "mockBot",
-  "personality": "steeve",
-  "port": 2020
-}, {
-  "name": "test",
-  "personality": "steeve",
-  "port": 2001
+  "name" : "Steeve",
+  "personality" : "Steeve,
+  "port" : 2000,
+  "uiInterface" : "discord",
+  "clientID" : XXXXXX,
+  "token" : XXXXXXXXX
+},{
+  "name" : "test",
+  "personality" : "Steeve,
+  "port" : 2001,
+  "uiInterface" : "sms",
+  "clientID" : undefined,
+  "token" : undefined
 }]
 ```
 
@@ -44,28 +49,33 @@ And if you know the name of a bot and you want details on it do a GET request at
 You will be served an answer formated like this :
 
 ```JSON
-{"name":"mockBot","personality":"steeve","port":2020}
+{"name":"mockBot","personality":"steeve","port":2020, "uiInterface" : "sms"}
 ```
 
-## How to GET the list of personnality ?
+If you want to get only the bot using the sms services you can send a request at http://localhost:8080/sms
 
-Send a GET request at http://localhost:8080/aide/personnalites
+## How to GET the list of personnality or of interfaces ?
+
+Send a GET request at http://localhost:8080/aide/personnalites or http://localhost:8080/aide/interface
 you will receive a JSON like this :
 ```JSON
 {[personnality1, personnality2, etc ...]}
 ```
 
-## How to POST a bot on this service ?
+## How to create a bot on this service ?
 
 You need to create a POST request and send a JSON like this :
 
 ```JSon
-{"name" : "test", "personality":"steeve"}
+{"name": name,"personality": personality,"interface": interface, "token" : token, "clientID" : clientID }
 ```
 
-If you send an empty JSON or if informations are lacking the name will be "Anne Onyme" and the personnality "Steeve".
+If you send an empty JSON or if informations are lacking the name will be "Anne Onyme" the personnality "Steeve" and the interface would be 'sms'.
+
+The field token and clientID are mandatory if you want to use an discord interface (go at the end of this README to learn how to get them).
 
 The bot will take a port which isn't currently used starting with the port 2000.
+
 
 ## How to delete a bot from the list ?
 
@@ -73,16 +83,21 @@ You have to create a DEL request with the path following at this url : http://lo
 
 This will delete the bot from the list on the server.
 
-## How to change bot variables ?
-if you want to change the name of your bot you can send a PUT request at http://localhost:8080/BOT_NAME
+## How to modify a bot ?
 
-```JSon
-{"name" : "test"}
+You have to create a PUT request with the path following at this url : http://localhost:8080/BOT_NAME
+
+In the body of your request have to look like this :
+```JSON
+{"name" : name, "interface" : interface, "clientID" : clientID, "token" : token}
 ```
+If you fill only the name, it will only change the name of the bot.
+If you change the interface from 'discord' to 'sms' you won't have to fill the clientID and the token field.
+Overwise those fields are mandatory !
 
-We can't find a way to change the personnality of the bot because this recquire to close a port and then reopen it.
+We haven't found a way to change the personnality of the bot since it recquire to close a port and then reopen it.
 
-## How to obtain a token to use the ChatBot service on Discord ?
+## How to obtain a token and a clientID to use the ChatBot service on Discord ?
 
 Go to this link : https://discordbots.org/bot/new
 
@@ -97,6 +112,3 @@ Finally, to get your token, select your application, select bot in the settings.
 ## Ressources:
 
 - Steeve brain : https://github.com/aichaos/rivescript-js/blob/master/eg/brain/begin.rive
-
-  ​
-
