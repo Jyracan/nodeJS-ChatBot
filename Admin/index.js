@@ -45,7 +45,7 @@ app.post('/modify',function(req,res){
   let interface=req.body.interface;
   let newPersonality=req.body.personality;
   let token=req.body.token;
-  let clientID=req.body.cliendID;
+  let clientID=req.body.clientID;
   if(name!=undefined){
     res.cookie("name",name);
     requete.getARobot(name);
