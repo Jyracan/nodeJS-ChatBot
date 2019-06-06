@@ -54,7 +54,6 @@
     <h2>New personality :</h2>     <select  name="personality">
           <% personalities.forEach(function(personality){ %>
               <option value="<%=personality%>"><%=personality%></option> <!-- Récupération du port-->
-
               <% }); %>
         </select>
         <input type="hidden" name="bot" value="<%=robot.name%>">
@@ -64,7 +63,6 @@
         <select  name="interface">
           <% interfaces.forEach(function(interface){ %>
               <option value="<%=interface%>"><%=interface%></option> <!-- Récupération de l'interface-->
-
               <% }); %>
               <br>
                 <h2>Old token : </h2> <%=robot.token%>

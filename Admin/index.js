@@ -42,8 +42,8 @@ app.post('/modify',function(req,res){
   let newname=req.body.nom;
   requete.getAllInterface();
   let interfaces=requete.getReply();
-  let interface=req.body.interface
-  let newPersonality=req.body.personality
+  let interface=req.body.interface;
+  let newPersonality=req.body.personality;
   let token=req.body.token;
   let clientID=req.body.cliendID;
   if(name!=undefined){
@@ -56,10 +56,11 @@ app.post('/modify',function(req,res){
   }
 
   else if(newname!=undefined && newPersonality!=undefined){ //On a choisi une nouvelle personnalité ou nom
-    requete.modify(req.body.bot,newname,newPersonality,);
+    requete.modify(req.body.bot,newname,newPersonality,interface,token,clientID);
     requete.getAllRobots()
     robots=requete.getReply();
-    res.render('modify',{"robots": robots,"name":undefined, "message": "Bot modified","interfaces": interfaces});
+    let message=req.body;
+    res.render('modify',{"robots": robots,"name":undefined, "message": message,"interfaces": interfaces});
   }
   else{ //On vient d'arriver pour la première fois
     res.render('modify',{"robots": robots,"name":req.cookies.name, "message": "","interfaces": interfaces});
