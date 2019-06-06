@@ -26,17 +26,17 @@ Simply create a GET request at : http://localhost:8080/
 
 You will receive an answer formated like this :
 
-```JSON
+```
 [{
   "name" : "Steeve",
-  "personality" : "Steeve,
+  "personality" : "Steeve",
   "port" : 2000,
   "uiInterface" : "discord",
-  "clientID" : XXXXXX,
-  "token" : XXXXXXXXX
+  "clientID" : 00000000,
+  "token" : 000000000
 },{
   "name" : "test",
-  "personality" : "Steeve,
+  "personality" : "Steeve",
   "port" : 2001,
   "uiInterface" : "sms",
   "clientID" : undefined,
@@ -48,7 +48,7 @@ And if you know the name of a bot and you want details on it do a GET request at
 
 You will be served an answer formated like this :
 
-```JSON
+```
 {"name":"mockBot","personality":"steeve","port":2020, "uiInterface" : "sms"}
 ```
 
@@ -58,7 +58,7 @@ If you want to get only the bot using the sms services you can send a request at
 
 Send a GET request at http://localhost:8080/aide/personnalites or http://localhost:8080/aide/interface
 you will receive a JSON like this :
-```JSON
+```
 {[personnality1, personnality2, etc ...]}
 ```
 
@@ -66,7 +66,7 @@ you will receive a JSON like this :
 
 You need to create a POST request and send a JSON like this :
 
-```JSon
+```
 {"name": name,"personality": personality,"interface": interface, "token" : token, "clientID" : clientID }
 ```
 
@@ -88,7 +88,7 @@ This will delete the bot from the list on the server.
 You have to create a PUT request with the path following at this url : http://localhost:8080/BOT_NAME
 
 In the body of your request have to look like this :
-```JSON
+```
 {"name" : name, "interface" : interface, "clientID" : clientID, "token" : token}
 ```
 If you fill only the name, it will only change the name of the bot.
