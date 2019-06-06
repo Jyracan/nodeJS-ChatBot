@@ -75,7 +75,7 @@ app.post('/add',function(req,res){
   let name=req.body.name;
   let personality=req.body.personality;
   let token=req.body.token;
-  let clientID=req.body.cliendID;
+  let clientID=req.body.clientID;
   requete.getAllPersonality();
   let personalities=requete.getReply();
   requete.getAllInterface();
@@ -87,7 +87,8 @@ app.post('/add',function(req,res){
   }
   else{
       requete.createARobot(name,personality,interface,token,clientID);
-      res.render('ajout',{"personalities": personalities, "ajout": "Successfully added!","interfaces": interfaces, "interface": interface});
+      let message=requete.getReply();
+      res.render('ajout',{"personalities": personalities, "ajout": message,"interfaces": interfaces, "interface": interface});
   }
 
 });
