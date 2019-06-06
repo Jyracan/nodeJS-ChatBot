@@ -47,26 +47,16 @@
       <% interfaces.forEach(function(interface){ %>
           <option value="<%=interface%>"><%=interface%></option> <!-- Récupération de l'interface-->
           <% }); %>
-<<<<<<< HEAD
-        <br>
-        <p>Token (if discord) :   </p>     
-        <input type="text" name="token" value="yourToken">
-        <br>
-        <p>ClientID (if discord) :</p>
-        <br>
-        <input type="text" name="clientID" value="yourClientID">
-        <br>
-=======
           <br>
-          Token (if discord)
+          <br>
+          <label for="token">Token (if discord)</label>
             <br>
-            <input type="text" name="token" value="yourToken">
+            <input type="text" name="token" value="yourToken" id="token">
             <br>
             ClientID (if discord) :
             <br>
             <input type="text" name="clientID" value="yourClientID">
             <br>
->>>>>>> 6b2e74748603181e34bf6afaaa0f5dfa790ed748
     </select>
     <input type="submit" name="" value="Submit">
   </form>
