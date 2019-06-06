@@ -187,7 +187,7 @@ exports.createARobot=function(name,personality,interface,token,clientID){
         if (invocation.status == 200){
 
     	try{
-          	reponse = JSON.parse(invocation.responseText);
+          	reponse = invocation.responseText;
     		  //  console.log(response);
     	}catch(err){
     		console.log("invocation.responseText "+invocation.responseText);
