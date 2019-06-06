@@ -29,17 +29,19 @@ class robot {
 		}
 
 		this.changeToDiscord = function(token, clientID){
+			this.uiInterface = 'discord';
 			this.clientID = clientID;
 			this.token = token;
 			this.bot = new RiveScript();
 			this.bot.loadFile('./brain/'+this.personality+'.rive').then(this.success_handler.bind(this)).catch(this.error_handler);
 		}
 		this.changeToSms = function(port){
+			this.uiInterface = 'sms';
 			this.port = port;
 			this.bot = new RiveScript();
 			this.bot.loadFile('./brain/'+this.personality+'.rive').then(this.success_handler.bind(this)).catch(this.error_handler);
 		}
-		
+
 		this.delete = function(){
 			console.log(port)
 			//kill(this.port,'tcp').then(console.log).catch(console.log);
