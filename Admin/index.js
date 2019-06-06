@@ -87,7 +87,13 @@ app.post('/add',function(req,res){
   }
   else{
       requete.createARobot(name,personality,interface,token,clientID);
-      let message=requete.getReply();
+      let message;
+      if(res.statusCode==200){
+        message="OK!";
+      }
+      else{
+        message="An error happens!";
+      }
       res.render('ajout',{"personalities": personalities, "ajout": message,"interfaces": interfaces, "interface": interface});
   }
 

@@ -188,7 +188,7 @@ exports.createARobot=function(name,personality,interface,token,clientID){
 
     	try{
           	reponse = invocation.responseText;
-    		  //  console.log(response);
+    		    console.log("reponse="+response);
     	}catch(err){
     		console.log("invocation.responseText "+invocation.responseText);
     	}
