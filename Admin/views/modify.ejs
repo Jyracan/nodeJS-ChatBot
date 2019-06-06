@@ -43,36 +43,38 @@
   </form>
 <%if(name!=undefined){ %>
   <form action="modify" method="post" id="center">
-    <h2>Old name :</h2> <%=robot.name%>
+    Old name : <%=robot.name%>
     <br>
-    <h2>New name :</h2> <input type="text" name="nom" value="<%=robot.name%>" >
+    New name : <input type="text" name="nom" value="<%=robot.name%>" >
     <br>
-    <h2>Old personality :</h2> <%=robot.personality%>
+    Old personality : <%=robot.personality%>
     <br>
     /!\ You can't change the personality currently /!\
     <br>
-    <h2>New personality :</h2>     <select  name="personality">
+    New personality :     <select  name="personality">
           <% personalities.forEach(function(personality){ %>
               <option value="<%=personality%>"><%=personality%></option> <!-- Récupération du port-->
               <% }); %>
         </select>
         <input type="hidden" name="bot" value="<%=robot.name%>">
-        <h2>Old interface : </h2> <%=robot.uiInterface%>
+        Old interface :  <%=robot.uiInterface%>
         <br>
-        <h2>New interface : </h2>
+        New interface :
         <select  name="interface">
           <% interfaces.forEach(function(interface){ %>
               <option value="<%=interface%>"><%=interface%></option> <!-- Récupération de l'interface-->
               <% }); %>
+        </select>
               <br>
-                <h2>Old token : </h2> <%=robot.token%>
+                Old token :  <%=robot.token%>
                 <br>
-                <h2>Token (if discord) : </h2>
+                Token (if discord) :
                 <input type="text" name="token" value="<%=robot.token%>">
                 <br>
-                <h2>Old clientID : </h2> <%=robot.clientID%>
+                Old clientID :  <%=robot.clientID%>
                 <br>
                 ClientID (if discord) :
+                <br>
                 <input type="text" name="clientID" value="<%=robot.clientID%>">
                 <br>
     <input type="submit" name="" value="submit">
