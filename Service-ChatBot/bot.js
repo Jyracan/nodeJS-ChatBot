@@ -18,16 +18,28 @@ class robot {
 
 		this.changePersonality = function (newPersonality) {
 			this.bot = new RiveScript();
-			kill(this.port,'tcp').then(console.log).catch(console.log);
+			//kill(this.port,'tcp').then(console.log).catch(console.log);
 			this.personality = newPersonality;
 			this.bot.loadFile('./brain/'+newPersonality+'.rive').then(this.success_handler.bind(this)).catch(this.error_handler);
 		}
 
 		this.changeName = function(newName){
 			this.name = newName;
-			this.bot.setVariable ("name", newName)
+			this.bot.setVariable ("name", newName);
 		}
 
+		this.changeToDiscord = function(token, clientID){
+			this.clientID = clientID;
+			this.token = token;
+			this.bot = new RiveScript();
+			this.bot.loadFile('./brain/'+this.personality+'.rive').then(this.success_handler.bind(this)).catch(this.error_handler);
+		}
+		this.changeToSms = function(port){
+			this.port = port;
+			this.bot = new RiveScript();
+			this.bot.loadFile('./brain/'+this.personality+'.rive').then(this.success_handler.bind(this)).catch(this.error_handler);
+		}
+		
 		this.delete = function(){
 			console.log(port)
 			//kill(this.port,'tcp').then(console.log).catch(console.log);

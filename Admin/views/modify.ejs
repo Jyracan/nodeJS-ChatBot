@@ -67,7 +67,6 @@
 
               <% }); %>
               <br>
-              <%if(robot.uiInterface=='discord'){ %>
                 <h2>Old token : </h2> <%=robot.token%>
                 <br>
                 <h2>Token (if discord) : </h2>
@@ -78,7 +77,6 @@
                 ClientID (if discord) :
                 <input type="text" name="clientID" value="<%=robot.clientID%>">
                 <br>
-                <%} %>
     <input type="submit" name="" value="submit">
   </form>
 <%} %>

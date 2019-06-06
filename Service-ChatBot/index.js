@@ -125,27 +125,43 @@ app.delete('/:name',function(req, res) {
 //PUT
 app.put('/:name',function(req, res) {
 	var name = req.params.name;
-	console.log("Modification du bot "+name);
     if(undefined!=name){
-    	// UPDATE OF THE PERSONALITY
+    	console.log("Modification du bot "+name);
+    	// UPDATE OF THE PERSONALITY DOESN'T WORK CURRENTLY
     	var newPersonality = req.body.personality;
-    	console.log("np " + newPersonality)
+    	console.log("nouvelle personnalités : " + newPersonality)
 		if(newPersonality != undefined) {
 			botToUpdate = getBot(name);
 			botToUpdate.changePersonality(newPersonality);
 			console.log("Personnalité du robot changé !")
 		}
 		//UPDATE OF THE NAME
-		var newName = req.body.name;
-		console.log("nn " + newName)
-
-		if(newName != undefined) {
+		var newInterface = req.body.interface;
+		console.log("Nouvelle Interface " + newInterface);
+		if(newInterface == 'discord') {
+			console.log("On demande un bot discord")
 			botToUpdate = getBot(name);
-			botToUpdate.changeName(newName);
-			console.log("Nom du robot changé !")
+			var token = req.body.token;
+			var clientID = req.body.clientID;
+			console.log('Nouveau clientID ' + clientID + ' Nouveau Token ' + token);
+			if(token != undefined || clientID != undefined){
+				changeToDiscord(token, clientID);
+			}else{
+				res.send(400,'Veuillez renseigner le token et le clientID');
+			}
+			console.log("Interface du robot changé !")
+			res.send(200,'OK');
 		}
-		res.send(200,'OK');
-    }else{
+		if(newInterface == 'sms'){
+			botToUpdate = getBot(name);
+			if(botToUpdate.uiInterface != newInterface){
+				nextPort ++;
+				changeToSms(nextPort);
+			}
+			console.log("Interface du robot changé !")
+			res.send(200,'OK');
+		}
+	}else{
 		res.send(404, 'Bot not found ! :(');
 	}
 });
